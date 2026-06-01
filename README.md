@@ -1,3 +1,39 @@
+# Recovery Marketplace — Admin Panel
+
+React (CRA) + Chakra UI admin dashboard built on Horizon UI for the towing / vehicle
+recovery / roadside-assistance marketplace. Talks to the `recovery-backend` REST API.
+
+## Setup
+
+```bash
+cp .env .env.local   # or edit .env
+# REACT_APP_API_URL=http://localhost:4000/api/v1
+npm install
+npm start            # dev server on :3000
+npm run build        # production build
+```
+
+## Architecture
+
+- **Auth** — `context/AuthContext` holds the user + flat permission list; `guards/RequireAuth`
+  and `guards/GuestRoute` protect routes; `services/api.js` axios instance auto-refreshes
+  the JWT on 401 and retries queued requests.
+- **Permissions** — `can('perm')` / `can(['a','b'])` gate sidebar links (`routes.js`) and
+  in-view actions. The sidebar only renders entries the user is permitted to see.
+- **Data** — TanStack Query for all server state; `react-hook-form` for forms;
+  `react-hot-toast` for feedback.
+
+## Admin modules (`src/views/admin`)
+
+`dashboard` (live stats + recent requests), `requests` (service requests + bids drawer with
+accept/start/complete/cancel), `vehicles` (fleet CRUD), `wallet` (balances + ledger),
+`withdrawals` (approve/reject/mark-paid), `notifications` (inbox + broadcast composer),
+`users`, `roles`, `permissions`, `settings` (grouped config editor), `auditLogs`.
+
+Each module has a matching service in `src/services/*.service.js`.
+
+---
+
 # [Horizon UI ⚡️](https://horizon-ui.com/horizon-ui-chakra) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://horizon-ui.com/&text=Check%20Horizon%20UI,%20the%20trendiest%20open-source%20admin%20template%20for%20Chakra%20UI%20&%20React!)
 
 ![version](https://img.shields.io/badge/version-3.0.0-brightgreen.svg)
