@@ -20,7 +20,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  Textarea,
 } from '@chakra-ui/react';
 import toast from 'react-hot-toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
