@@ -71,9 +71,12 @@ export function AuthProvider({ children }) {
 
   const can = useCallback(
     (...required) => {
+      // Accept both can('a', 'b') and can(['a', 'b'])
+      const flat = required.flat();
+      if (!flat.length) return true;
       if (!permissions.length) return false;
       if (permissions.includes('*')) return true;
-      return required.some((p) => permissions.includes(p));
+      return flat.some((p) => permissions.includes(p));
     },
     [permissions]
   );
